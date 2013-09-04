@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>My AngularJS App</title>
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body>
+
+  <hr>
+  <h2>routed ng-view</h2>
+  <ul class="menu">
+    <li><a href="#/tasks">tasks</a></li>
+    <li><a href="#/new">new task</a></li>
+  </ul>
+  <div ng-view></div>
+
+  <hr>
+  <h2>clicky div chooser</h2>
+  <table>
+    <tr><td>
+      <pre class="ng-cloak">main scope curtab = {{curtab}}</pre>
+      <ul>
+        <li><a href="" ng-click="curtab = 'one'">one</a></li>
+        <li><a href="" ng-click="curtab = 'two'">two</a></li>
+        <li><a href="" ng-click="curtab = 'three'">three</a></li>
+      </ul>
+    </td><td>
+      <div ng-switch="curtab" class="ng-cloak">
+        <div ng-switch-when="one"> <h3>one</h3> </div>
+        <div ng-switch-when="two"> <h3>two</h3> </div>
+        <div ng-switch-when="three" ng-include='"partials/three.html"'> <h3>three</h3> </div>
+      </div>
+    </td></tr>
+  </table>
+
+  <hr>
+  <h2>css transition</h2>
+  <p><label for="showittoggle"><input type="checkbox" id="showittoggle" ng-model="showit"> show it</label></p>
+  <div ng-class="{on: showit, off: !showit}" class="fade zoom off" style="float: left">
+    fade and zoom in and out via css transitions, but alas no display:* toggling here.
+  </div>
+
+  <hr style="clear:both">
+  <h2>simple static modal</h2>
+  <div ng-controller="ModalTestCtrl">
+    <p><button ng-click="openIt()">open modal</button></p>
+    <div ng-class="{showing: inModal, hidden: !inModal, on: activeModal, off: !activeModal}" class="fade off modal-outer">
+      <div class="modal-bg" ng-click="closeIt()"></div>
+      <div ng-class="{showing: inModal, hidden: !inModal, on: activeModal, off: !activeModal}" class="modal-content zoom off">
+        <h1>hello</h1>
+        <button ng-click="closeIt()">close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/async-load.js"></script>
+
+</body>
+</html>
