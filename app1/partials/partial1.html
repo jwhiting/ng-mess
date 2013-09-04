@@ -6,7 +6,7 @@
 
   <table>
     <tr>
-      <th>Z owner <button ng-click="sortByProp('owner')" ng-bind-html-unsafe="sortButtonValue['owner']"></button></th>
+      <th>owner <button ng-click="sortByProp('owner')" ng-bind-html-unsafe="sortButtonValue['owner']"></button></th>
       <th>name <button ng-click="sortByProp('name')" ng-bind-html-unsafe="sortButtonValue['name']"></button></th>
     </tr>
     <tr ng-repeat="task in tasks">
@@ -15,8 +15,10 @@
     </tr>
   </table>
 
-  <pre>locat storage foo = {{$storage.foo}}</pre>
-  <p>local storage foo: <input type="text" ng-model="$storage.foo"></p>
+  <p><b>html5 local storage test.</b> foo will be persisted locally via html5
+  local storage, synchronized across tabs, and also synchronized across
+  instances of this task list controller within the same page:</p>
+  <p>foo="{{$storage.foo}}", set a new value: <input type="text" ng-model="$storage.foo"></p>
 
   <!--
   <select ng-model="sortBy" ng-change="doSort()">

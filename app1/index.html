@@ -9,7 +9,7 @@
 <body>
 
   <hr>
-  <h2>routed ng-view</h2>
+  <h2>url fragment-routed task list micro-app</h2>
   <ul class="menu">
     <li><a href="#/tasks">tasks</a></li>
     <li><a href="#/new">new task</a></li>
@@ -20,14 +20,14 @@
   <h2>clicky div chooser</h2>
   <table>
     <tr><td>
-      <pre class="ng-cloak">main scope curtab = {{curtab}}</pre>
+      <pre class="ng-cloak">main scope curdiv={{curdiv}}</pre>
       <ul>
-        <li><a href="" ng-click="curtab = 'one'">one</a></li>
-        <li><a href="" ng-click="curtab = 'two'">two</a></li>
-        <li><a href="" ng-click="curtab = 'three'">three</a></li>
+        <li><a href="" ng-click="curdiv = 'one'">div one</a></li>
+        <li><a href="" ng-click="curdiv = 'two'">div two</a></li>
+        <li><a href="" ng-click="curdiv = 'three'">div three (task list)</a></li>
       </ul>
     </td><td>
-      <div ng-switch="curtab" class="ng-cloak">
+      <div ng-switch="curdiv" class="ng-cloak">
         <div ng-switch-when="one"> <h3>one</h3> </div>
         <div ng-switch-when="two"> <h3>two</h3> </div>
         <div ng-switch-when="three" ng-include='"partials/three.html"'> <h3>three</h3> </div>
@@ -37,6 +37,7 @@
 
   <hr>
   <h2>css transition</h2>
+  <p>with css, this is the basis for tabs/accordions/etc</p>
   <p><label for="showittoggle"><input type="checkbox" id="showittoggle" ng-model="showit"> show it</label></p>
   <div ng-class="{on: showit, off: !showit}" class="fade zoom off" style="float: left">
     fade and zoom in and out via css transitions, but alas no display:* toggling here.
@@ -44,6 +45,7 @@
 
   <hr style="clear:both">
   <h2>simple static modal</h2>
+  <p>uses css transitions and a controller for some $timeout() calls to implement a 2-stage css class modification.</p>
   <div ng-controller="ModalTestCtrl">
     <p><button ng-click="openIt()">open modal</button></p>
     <div ng-class="{showing: inModal, hidden: !inModal, on: activeModal, off: !activeModal}" class="fade off modal-outer">
