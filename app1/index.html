@@ -18,6 +18,7 @@
 
   <hr>
   <h2>clicky div chooser</h2>
+  <p>with css, this is the basis for tabs/accordions/etc</p>
   <table>
     <tr><td>
       <pre class="ng-cloak">main scope curdiv={{curdiv}}</pre>
@@ -37,7 +38,6 @@
 
   <hr>
   <h2>css transition</h2>
-  <p>with css, this is the basis for tabs/accordions/etc</p>
   <p><label for="showittoggle"><input type="checkbox" id="showittoggle" ng-model="showit"> show it</label></p>
   <div ng-class="{on: showit, off: !showit}" class="fade zoom off" style="float: left">
     fade and zoom in and out via css transitions, but alas no display:* toggling here.
