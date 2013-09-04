@@ -46,11 +46,13 @@
   <div ng-controller="ModalTestCtrl">
     <p><button ng-click="openIt()">open modal</button></p>
     <div ng-class="{showing: inModal, hidden: !inModal, on: activeModal, off: !activeModal}" class="fade off modal-outer">
-      <div class="modal-bg" ng-click="closeIt()"></div>
-      <div ng-class="{showing: inModal, hidden: !inModal, on: activeModal, off: !activeModal}" class="modal-content zoom off">
-        <h1>hello</h1>
-        <button ng-click="closeIt()">close</button>
-      </div>
+      <div class="modal-inner-1"><div class="modal-inner-2"><div class="modal-inner-3">
+        <div class="modal-bg" ng-click="closeIt()"></div>
+        <div ng-class="{showing: inModal, hidden: !inModal, on: activeModal, off: !activeModal}" class="modal-content zoom off">
+          <h1>hello</h1>
+          <button ng-click="closeIt()">close</button>
+        </div>
+      </div></div></div>
     </div>
   </div>
 
