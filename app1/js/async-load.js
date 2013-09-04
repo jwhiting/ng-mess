@@ -29,7 +29,8 @@ $script([
   'js/controllers.js',
   'js/filters.js',
   'js/directives.js',
-  'https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js'
+  'https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js',
+  // 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', // don't load this async, it needs to definitely load before angular. so it goes in the page head tag.
 ], function() {
   // when all is done, execute bootstrap angular application
   angular.bootstrap(document, ['myApp']);

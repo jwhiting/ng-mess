@@ -56,22 +56,22 @@ function TaskListCtrl($scope, $localStorage) {
 function ModalTestCtrl($scope, $timeout) {
 
   $scope.openIt = function() {
-    console.log("open modal");
+    console.log("open modal stage 1 (inModal = true)");
     var self=this;
     self.activeModal = false;
     self.inModal = true;
     $timeout(function(){
-      console.log("open modal timeout");
+      console.log("open modal stage 2 (activeModal = true)");
       self.activeModal = true;
     });
   };
 
   $scope.closeIt = function() {
-    console.log("close modal");
+    console.log("close modal stage 1 (activeModal = false)");
     var self=this;
     self.activeModal = false;
     $timeout(function(){
-      console.log("close modal timeout");
+      console.log("close modal stage 2 (inModal = false)");
       self.inModal = false;
     }, 200);
   };

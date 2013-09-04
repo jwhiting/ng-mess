@@ -1,0 +1,10 @@
+<h1>derpy xhr modal</h1>
+<button ng-click="close()">close</button>
+<script>
+  $(function(){
+    // this doesn't actually run unless we include jquery in the page instead of using angular's jqlite.
+    // HOWEVER, when i do that, things that should run only once start running more than once! like,
+    // this line will be logged three times!
+    console.log("xhr modal content loaded up");
+  })
+</script>
