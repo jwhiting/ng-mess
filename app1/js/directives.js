@@ -101,6 +101,48 @@ angular.module('myApp.directives', []).
         element.bind('click',loadModal);
       }
     }
+  }]).
+
+  directive('inlineModal', ['$compile','$timeout','$document',function($compile,$timeout,$document,$http){
+    return {
+      link: function(scope, element, attrs) {
+        function loadModal() {
+          var inlineEl = angular.element(document.getElementById(attrs.inlineModal));
+          if (!inlineEl) {
+            throw new Error("couldn't locate the inline element div ("+attrs.inlineModal+")");
+            return;
+          }
+          var modalScope = scope.$new();
+          var modalDomEl = $compile(angular.element('<div modal-layout></div>').html(inlineEl.html()))(modalScope);
+          modalScope.inModal = false;
+          modalScope.activeModal = false;
+          modalScope.openIt = function() {
+            console.log("inline open modal stage 1");
+            modalScope.activeModal = false;
+            modalScope.inModal = true;
+            //modalScope.$apply();
+            $timeout(function(){
+              console.log("inline modal stage 2");
+              modalScope.activeModal = true;
+            });
+          };
+          modalScope.closeIt = function() {
+            console.log("inline close modal stage 1");
+            modalScope.activeModal = false;
+            $timeout(function(){
+              console.log("inline close modal stage 2");
+              modalScope.inModal = false;
+              modalScope.$destroy();
+              modalDomEl.remove();
+            }, 200);
+          };
+          var body = $document.find('body').eq(0); // todo: use root app element instead?
+          body.append(modalDomEl);
+          modalScope.openIt();
+        }
+        element.bind('click',loadModal);
+      }
+    }
   }])
 
 ;

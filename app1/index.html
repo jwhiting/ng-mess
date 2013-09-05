@@ -72,6 +72,14 @@
   <h2>improved directive-based modal</h2>
   <p><button better-xhr-modal="partials/xhrmodal2.html">open better xhr modal</button></p>
 
+  <hr style="clear:both">
+  <h2>directive-based inline (non-xhr) modal</h2>
+  <p><button inline-modal="anInlineModal">open inline modal</button></p>
+  <div id="anInlineModal" class="hidden">
+    <h1>this modal content is defined inline.</h1>
+    <button ng-click="closeIt()">close</button>
+  </div>
+
   <script src="js/async-load.js"></script>
 
 </body>
