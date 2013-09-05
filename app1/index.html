@@ -60,7 +60,11 @@
 
   <hr style="clear:both">
   <h2>derpy xhr directive-based modal</h2>
-  <p>the contents of this modal are loaded from a remote template. however, the template is fetched and inserted into the dom right away on page load (check out the dom right now in the inspector), not on the click event. plus, the open event isn't guaranteed to happen after the remote content is laoded and parsed. so this is pretty derpy. but it's a start.</p> 
+  <p>the contents of this modal are loaded from a remote template. however, the
+  template is fetched and inserted into the dom right away on page load (check
+  out the dom right now in the inspector), not on the click event. plus, the
+  open event isn't guaranteed to happen after the remote content is laoded and
+  parsed. so this is pretty derpy. but it's a start.</p> 
   <p><button derpy-xhr-modal="partials/xhrmodal.html">open xhr modal</button></p>
 
   <hr style="clear:both">
@@ -69,6 +73,9 @@
 
   <hr style="clear:both">
   <h2>improved directive-based modal</h2>
+  <p>loads the remote content when you click the button, doesn't show the modal
+  until that content is fully loaded and compiled, shows a spinner on the
+  button while the xhr is in progress.</p>
   <p><button better-xhr-modal="partials/xhrmodal2.html">open better xhr modal</button></p>
 
   <hr style="clear:both">

@@ -59,7 +59,7 @@ angular.module('myApp.directives', []).
     }
   }).
 
-  directive('betterXhrModal', ['$compile','$timeout','$document','$http',function($compile,$timeout,$document,$http){
+  directive('betterXhrModal', ['$compile','$timeout','$document','$http','spinStates',function($compile,$timeout,$document,$http,spinStates){
     return {
       link: function(scope, element, attrs) {
         function loadModal() {
@@ -83,6 +83,12 @@ angular.module('myApp.directives', []).
           };
           var spinner = new Spinner(spinnerOpts).spin(element[0]);
           element.addClass('cleartext');
+
+/*          var spinKey = 'modal-'+Math.random();
+      console.log("directiveelement:",element);
+          spinStates.register(element,spinKey);
+          spinStates.setActive(spinKey);*/
+
           var fetchPromise = $http.get(attrs.betterXhrModal);
           fetchPromise.then(function(result){
             console.log("better xhr modal got remote modal content",result);
@@ -116,9 +122,13 @@ angular.module('myApp.directives', []).
             modalScope.openIt();
             spinner.stop();
             element.removeClass('cleartext');
+            //spinStates.setInactive(spinKey);
+            //spinStates.unregister(element);
           }, function(error){
             spinner.stop();
             element.removeClass('cleartext');
+            //spinStates.setInactive(spinKey);
+            //spinStates.unregister(element);
             console.log("better xhr modal failed to get modal content", error);
             //... eventually i want the modal directive to implement error handling with a specific error modal
           })
