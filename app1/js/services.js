@@ -11,7 +11,11 @@ angular.module('myApp.services', []).
   factory('spinStates',function(){
     var active = {};
     var registry = {};
-    var getStartedSpinner = function(element) {
+    var startSpinning = function(element) {
+      if (element.data('spinner')) {
+        element.data('spinner').spin();
+        return;
+      }
       var spinnerOpts = {
         lines: 9, // The number of lines to draw
         length: 0, // The length of each line
@@ -30,34 +34,38 @@ angular.module('myApp.services', []).
         top: 'auto', // Top position relative to parent in px
         left: 'auto' // Left position relative to parent in px
       };
-      console.log("element:",element);
       var spinner = new Spinner(spinnerOpts).spin(element[0]);
-      angular.element(element).addClass('cleartext');
+      element.addClass('cleartext');
+      element.data('spinner',spinner);
       return spinner;
-    }
+    };
+    var stopSpinning = function(element) {
+      if (element.data('spinner')) {
+        element.data('spinner').stop();
+      }
+      element.removeClass('cleartext');
+    };
     var spinStates = {
       register: function(element, usageId) {
-      console.log("register element:",element);
-        if (!registry[usageId]) registry[usageId] = {}
-        if (!registry[usageId][element]) registry[usageId][element] = 1;
-      console.log("register2 element:",element);
-        if (active[usageId]) {
-          if (registry[usageId][element] == 1) {
-      console.log("register3 element:",element);
-            registry[usageId][element] = getStartedSpinner(element);
-          }
+        if (!registry[usageId]) registry[usageId] = [];
+        if ($.inArray(element, registry[usageId]) == -1) {
+          // todo does this memebership check actually work? coz i can't use element as a hash key...
+          registry[usageId][elements].push(element);
         }
+        if (active[usageId]) self.setActive(usageId);
       },
       unregister: function(element, usageId) {
         if (registry[usageId]) {
-          if (registry[usageId][element]) {
-            if (registry[usageId][element] != 1) {
-              registry[usageId][element].stop();
-              element.removeClass('cleartext');
-            }
-            delete registry[usageId][element];
+          var idx = $.inArray(element, registry[usageId]);
+          if (idx >= 0) {
+            delete registry[usageId][idx];
           }
         }
+
+
+// argh ok nevermind with this spinnerstates thing.
+
+
       },
       unregisterAll: function(usageId) {
         if (registry[usageId]) {
