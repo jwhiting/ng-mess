@@ -80,6 +80,15 @@
     <button ng-click="closeIt()">close</button>
   </div>
 
+  <hr style="clear:both">
+  <h2>nested inline modal test</h2>
+  <p><button inline-modal="nestedInlineModal">open inline modal</button></p>
+  <div id="nestedInlineModal" class="hidden">
+    <h1>this modal content is defined inline.</h1>
+    <p><button inline-modal="nestedInlineModal">open inline modal</button></p>
+    <button ng-click="closeIt()">close</button>
+  </div>
+
   <script src="js/async-load.js"></script>
 
 </body>
