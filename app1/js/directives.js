@@ -42,4 +42,12 @@ angular.module('myApp.directives', []).
         element.bind('click',scope.openIt);
       }
     };
+  }).
+
+  directive('fancyfoo', function(){
+    return {
+      transclude: true,
+      templateUrl: 'partials/fancyfoo.html',
+    }
   });
+;
