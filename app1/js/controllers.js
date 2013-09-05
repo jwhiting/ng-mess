@@ -86,3 +86,10 @@ function ModalTestCtrl($scope, $timeout) {
 
 
 };
+
+function CardListCtrl($scope,$http) {
+  $scope.cards = [];
+  $http.get('json/cards.json').then(function(result){
+    $scope.cards = result.data;
+  });
+}

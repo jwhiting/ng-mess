@@ -110,3 +110,91 @@ body {
 .cleartext {
   color: transparent !important;
 }
+
+
+/************************************************/
+.card {
+  background-color: #fcfcfc;
+  width: 182px;
+  height: 290px;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 14px;
+  text-decoration: none;
+  font-style: normal;
+}
+.card .front,
+.card .back {
+  padding: 8px 12px 8px;
+  position: absolute;
+}
+.card .back {
+  display: none;
+}
+.card .inner-content {
+  position: relative;
+}
+.card .type {
+  color: #444444;
+  font-size: 12px;
+  height: 19px;
+  line-height: 19px;
+}
+.card .type img {
+  margin-right: 2px;
+}
+.card .img-container {
+  height: 88px;
+  width: 156px;
+  margin: 5px 0;
+  background-color: #fff;
+}
+.card .img-container.empty-socket {
+  border: 1px solid #ddd;
+}
+.card .img-container img {
+  height: 88px;
+  width: 156px;
+}
+.card .title {
+  color: #3b3b3b;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.card .description {
+  overflow: hidden;
+  max-width: 156px;
+  word-wrap: break-word;
+}
+.ellipsis_text p {
+  position: relative;
+  margin: 0 0 5px 0;
+}
+.ellipsis_text p:last-child {
+  margin: 0;
+}
+.card .flip-button {
+  display: none;
+  font-size: 14px;
+  position: absolute;
+  bottom: 6px;
+  right: 7px;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  width: 14px;
+  height: 12px;
+  opacity: 0.6;
+}
+.card .flip-button:hover {
+  opacity: 0.3;
+}

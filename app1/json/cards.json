@@ -1,0 +1,16 @@
+[{"iconUrl":"img/card-type-icon-chartype.png",
+  "prettyNamespace":"Character Type",
+  "imageUrl":"img/card-type-chartype-default.png",
+  "name":"Messianic Hacker",
+  "renderedDescription":"She dug too deeply in the Net and part of her <b>never came back.</b>",
+  "attributionText":"source link",
+  "attributionUrl":"img/card-type-chartype-default.png"
+},
+{"iconUrl":"img/card-type-icon-goal.png",
+  "prettyNamespace":"Goal",
+  "imageUrl":"img/card-type-goal-default.png",
+  "name":"Deliver the package",
+  "renderedDescription":"Stuff and stuff",
+  "attributionText":"source link",
+  "attributionUrl":"img/card-type-goal-default.png"
+}]

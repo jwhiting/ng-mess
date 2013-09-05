@@ -1,0 +1,46 @@
+<div class="card">
+  <div class="front">
+    <div class="inner-content2">
+      <div class="inner-content">
+        <div class="type">
+          <div ng-show="card.prettyNamespace">
+            <img ng-src="{{card.iconUrl}}" alt="{{card.prettyNamespace}}"> {{ card.prettyNamespace }}
+          </div>
+        </div>
+        <div class="img-container">
+          <img ng-src="{{card.imageUrl}}" alt="{{card.name}}">
+        </div>
+        <div class="title">
+          <div title-caps="{{card.name}}"></div>
+        </div>
+        <div class="description">
+          <div ng-bind-html-unsafe="card.renderedDescription">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="back">
+    <div class="inner-content2">
+      <div class="inner-content">
+        <div class="description">
+          <div class="overflow-text">
+          </div>
+          <div ng-show="card.attributionText">
+            <div class="mb2"></div>
+            <div class="attribution">
+              <div ng-show="card.attributionUrl">
+                Image by: <a href="{{card.attributionUrl}}">{{card.attributionText}}</a>
+              </div>
+              <div ng-hide="card.attributionUrl">
+                Image by: {{card.attributionText}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img class="flip-button" src="img/card-flip-icon.png" alt="Flip over" title="Flip over">
+  <div class="clear"></div>
+</div>

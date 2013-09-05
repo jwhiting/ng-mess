@@ -168,6 +168,29 @@ angular.module('myApp.directives', []).
         element.bind('click',loadModal);
       }
     }
-  }])
+  }]).
+
+  directive('titleCaps', function(){
+    return {
+      scope: {
+        text: "@titleCaps", // need this in order to evaluate titleCaps as an ng template text that can contain expressions
+      },
+      link: function(scope, element, attrs){
+        scope.$watch('text',function(){
+          var el = angular.element('<div></div>');
+          for (var i=0; i < scope.text.length; i++) {
+            var ch = scope.text.charAt(i);
+            if (ch.toUpperCase() == ch) {
+              el.append($('<span style="font-size: 150%"></span>').text(ch));
+            } else {
+              el.append($('<span></span>').text(ch.toUpperCase()));
+            }
+          }
+          element.empty();
+          element.append(el);
+        });
+      }
+    };
+  })
 
 ;
