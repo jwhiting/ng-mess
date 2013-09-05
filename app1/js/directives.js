@@ -63,7 +63,28 @@ angular.module('myApp.directives', []).
     return {
       link: function(scope, element, attrs) {
         function loadModal() {
-          $http.get(attrs.betterXhrModal).then(function(result){
+          var spinnerOpts = {
+            lines: 9, // The number of lines to draw
+            length: 0, // The length of each line
+            width: 3, // The line thickness
+            radius: 5, // The radius of the inner circle
+            corners: 1, // Corner roundness (0..1)
+            rotate: 0, // The rotation offset
+            direction: 1, // 1: clockwise, -1: counterclockwise
+            color: '#000', // #rgb or #rrggbb or array of colors
+            speed: 1.5, // Rounds per second
+            trail: 33, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: 'auto', // Top position relative to parent in px
+            left: 'auto' // Left position relative to parent in px
+          };
+          var spinner = new Spinner(spinnerOpts).spin(element[0]);
+          element.addClass('cleartext');
+          var fetchPromise = $http.get(attrs.betterXhrModal);
+          fetchPromise.then(function(result){
             console.log("better xhr modal got remote modal content",result);
             var content = result.data;
             var modalScope = scope.$new();
@@ -93,10 +114,14 @@ angular.module('myApp.directives', []).
             var body = $document.find('body').eq(0); // todo: use root app element instead?
             body.append(modalDomEl);
             modalScope.openIt();
+            spinner.stop();
+            element.removeClass('cleartext');
           }, function(error){
+            spinner.stop();
+            element.removeClass('cleartext');
             console.log("better xhr modal failed to get modal content", error);
             //... eventually i want the modal directive to implement error handling with a specific error modal
-          });
+          })
         }
         element.bind('click',loadModal);
       }

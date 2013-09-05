@@ -106,3 +106,7 @@ body {
   height: 400px;
   background-color: white;
 }
+
+.cleartext {
+  color: transparent !important;
+}

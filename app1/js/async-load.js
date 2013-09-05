@@ -22,7 +22,7 @@ value:a("$provide","value"),constant:a("$provide","constant","unshift"),filter:a
 $script([
   // 'lib/angular/angular.js',
   //'http://code.angularjs.org/1.1.5/angular.min.js',
-  'http://code.angularjs.org/1.0.7/angular.js',
+  'http://code.angularjs.org/1.0.8/angular.js',
   // 'http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js',
   'js/app.js',
   'js/services.js',
@@ -30,7 +30,6 @@ $script([
   'js/filters.js',
   'js/directives.js',
   'https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js',
-  // 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', // don't load this async, it needs to definitely load before angular. so it goes in the page head tag.
 ], function() {
   // when all is done, execute bootstrap angular application
   angular.bootstrap(document, ['myApp']);
