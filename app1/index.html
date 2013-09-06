@@ -108,6 +108,12 @@
     </div>
   </div>
 
+  <hr style="clear:both">
+  <h2>title caps approaches: directive 1 vs directive 2 vs filter</h2>
+  <p title-caps="Title Caps 1-2-3-4 (sourced from attribute of empty element)"></p>
+  <p title-caps2>Title Caps 1-2-3-4 (transforms element content)</p>
+  <p ng-bind-html-unsafe="'Title 1-2-3-4 (filter on ng-bind-html-unsafe expression)' | titlecaps"></p>
+
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src='js/spin.js'></script>
   <script src='http://code.angularjs.org/1.0.8/angular.js'></script>
