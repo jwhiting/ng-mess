@@ -188,9 +188,170 @@ angular.module('myApp.directives', []).
           }
           element.empty();
           element.append(el);
+          // trigger card layout now that the title is rendered. can't do it
+          // before, because the title height dynamically affects the card
+          // layout.
+          element.closest('.card').trigger('layout-card');
         });
       }
     };
-  })
+  });
+
+  //directive('cardLayoutText', function(){
+  //  return {
+  //    scope: {
+  //      original: "@cardLayoutText",
+  //    },
+  //    link: function(scope, element, attrs){
+  //      scope.$watch('original',function(){
+  //        element.trigger('layout-card');
+  //      });
+  //    }
+  //  };
+  //})
 
 ;
+
+$('body').on('layout-card',function(e){
+  var card = $(e.target);
+  var frontText = card.find('.front .description');
+  // make an offscreen dupe of the card so we don't have ugly flickr on
+  // the real card
+  var dupeCard = card.clone();
+  dupeCard.css({
+    'position': 'fixed',
+    'top': '-2000px',
+    'right': '-2000px',
+  });
+  // remove script in case the call to layoutCard is actually inside the card div
+  dupeCard.find('script').remove();
+  // ensure dupe card is front-facing
+  dupeCard.find('.front').show();
+  dupeCard.find('.back').hide();
+  $('body').append(dupeCard);
+  var dupeFrontText = dupeCard.find('.front .description');
+  // this is the div whose height we'll optimize
+  var dupeInnerContent = dupeCard.find('.front .inner-content');
+  var maxHeight = 261;
+  //var original = scope.original + '';
+  var original = card.data('card-text');
+  original = original.replace(/\s+/gm," ");
+  original = original.replace(/<\/p>/gm,"\n");
+  original = original.replace(/<p>/gm,"");
+  original = original.replace(/\s+$/gm,"");
+  original = original.replace(/^\s+/gm,"");
+  // support the use of an ellipsis or three periods on it's own line to trigger
+  // a "page break", everything after the first instance of it renders on the
+  // backside.
+  var page_broken = original.split(/(\n\s*\.\.\.s*\n|\n\s*…s*\n)/);
+  original = page_broken[0];
+  // if (page_broken.length > 1) {
+  //   original = original + page_broken[1]; // include the ellipsis on the front side
+  // }
+  var overflowHtml = page_broken.slice(2).join("")
+  if (overflowHtml.length > 0) overflowHtml = "\n" + overflowHtml;
+  // now build an array of "words", the unbreakable units of the text.
+  var words = new Array;
+  var word = "";
+  for (var i = 0; i < original.length; i++) {
+    var c = original.charAt(i);
+    if (c.match(/[,.=-?:;"'()]/)) {
+      // these characters end a word but are included on the end of the
+      // word.
+      word = word + c;
+      words.push(word);
+      word = "";
+    } else if (c.match(/\s/)) {
+      // whitespace ends the word and then the whitespace itself gets its
+      // own word.
+      words.push(word);
+      words.push(c);
+      word = "";
+    } else {
+      // just a word character
+      word = word + c;
+    }
+  }
+  if (word.length > 0) {
+    // add the last word of the loop if any
+    words.push(word);
+  }
+  // do a binary search on the original text to find the optimum truncate
+  // position quickly, by measuring the height on the inner-content div and
+  // making sure it's as close as possible to maxHeight but not exceeding it
+  var upper = words.length - 1;
+  if (upper < 0) upper = 0;
+  var lower = 0;
+  var binarySearchTruncate = function(){
+    var middle = Math.round((upper-lower) / 2 + lower);
+    var ellipsisHtml = " ...";
+    if ((middle + 1) >= words.length) {
+      // don't need ellipsis if we're rendering all the original text
+      ellipsisHtml = "";
+    }
+    var html = words.slice(0,middle+1).concat(ellipsisHtml).join("");
+    html = '<p>'+html+'</p>';
+    html = html.replace(/\n/gm,"</p><p>");
+    dupeFrontText.html(html);
+    console.log(card.find('.title').text(),lower,middle,upper,parseFloat(dupeFrontText.height()),parseFloat(dupeInnerContent.height()),html);
+    if (upper == lower) {
+      var needsBackSide = false;
+      // we've arrived at the optimal truncation position.
+      // assign final truncated text
+      frontText.html(dupeFrontText.html());
+      if ((overflowHtml.length > 0) || ((middle + 1) < words.length)) {
+        // set overflow text on back
+        if ((middle + 1) < words.length) {
+          overflowHtml = words.slice(middle+1).join("") + overflowHtml;
+        }
+        overflowHtml = '<p>'+overflowHtml+'</p>';
+        overflowHtml = overflowHtml.replace(/\n/gm,"</p><p>");
+        card.find('.overflow-text').html(overflowHtml);
+        needsBackSide = true;
+      } else {
+        card.find('.overflow-text').empty();
+      }
+
+      // TODO: properly manage presence of flip button
+
+      //var attribution = card.find('.attribution');
+      //if (attribution.text().length > 0) {
+      //  needsBackSide = true;
+      //}
+      //if (needsBackSide) {
+      //  // unhide the flip button
+      //  flipButton.css('display','block');
+      //  if (isPeek) card.addClass('double-wide');
+      //} else {
+      //  // remove the backside
+      //  flipButton.css('display','none');
+      //  card.find('.front').fadeIn();
+      //  card.find('.back').hide();
+      //  // unflip if flipped
+      //  if (flipButton.data('flipped')) {
+      //    flipButton.data('flipped',false);
+      //    flipButton.css({
+      //      '-webkit-transform':'',
+      //      '-moz-transform':'',
+      //      '-o-transform':'',
+      //      'transform':'',
+      //    });
+      //  }
+      //}
+      // no need for the dupe
+      dupeCard.remove();
+      // mark rendered
+      //card.data('is-rendered',true);
+      // call back if provided
+      //if (doneCallback) doneCallback();
+      return;
+    } else if (parseFloat(dupeInnerContent.height()) > maxHeight) {
+      upper = Math.floor((upper - lower) / 2 + lower);
+    } else {
+      lower = Math.ceil((upper - lower) / 2 + lower);
+    }
+    binarySearchTruncate();
+  }
+  binarySearchTruncate();
+
+});

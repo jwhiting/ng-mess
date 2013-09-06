@@ -93,3 +93,15 @@ function CardListCtrl($scope,$http) {
     $scope.cards = result.data;
   });
 }
+
+angular.module('myApp.controllers', []).
+  controller('CardCtrl', ['$scope','$timeout', function ($scope,$timeout) {
+    //$scope.card.flipped = false;
+    //$scope.$watch('card.renderedDescription',function(){
+    //  $scope.card.frontDescriptionHtml = $scope.card.renderedDescription;
+    //  $timeout(function(){
+
+    //  });
+    //});
+  }]);
+

@@ -1,5 +1,5 @@
-<div class="card">
-  <div class="front">
+<div class="card" ng-controller="CardCtrl" data-card-text="{{card.renderedDescription}}">
+  <div class="front" ng-hide="card.flipped">
     <div class="inner-content2">
       <div class="inner-content">
         <div class="type">
@@ -14,13 +14,11 @@
           <div title-caps="{{card.name}}"></div>
         </div>
         <div class="description">
-          <div ng-bind-html-unsafe="card.renderedDescription">
-          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="back">
+  <div class="back" ng-show="card.flipped">
     <div class="inner-content2">
       <div class="inner-content">
         <div class="description">
@@ -41,6 +39,6 @@
       </div>
     </div>
   </div>
-  <img class="flip-button" src="img/card-flip-icon.png" alt="Flip over" title="Flip over">
+  <img class="flip-button" ng-class="{flipped: card.flipped}" src="img/card-flip-icon.png" alt="Flip over" title="Flip over" ng-click="card.flipped = !card.flipped">
   <div class="clear"></div>
 </div>
