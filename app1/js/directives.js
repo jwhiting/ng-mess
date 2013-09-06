@@ -188,10 +188,11 @@ angular.module('myApp.directives', []).
           }
           element.empty();
           element.append(el);
-          // trigger card layout now that the title is rendered. can't do it
-          // before, because the title height dynamically affects the card
-          // layout.
-          element.closest('.card').trigger('layout-card');
+          // support an on-render attribute that accepts javascript
+          if (attrs.onRender) {
+            var f = function(){ eval(attrs.onRender); }
+            f.call(element[0]); // set 'this' inside the eval to the dom node
+          }
         });
       }
     };

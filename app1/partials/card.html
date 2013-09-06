@@ -11,7 +11,7 @@
           <img ng-src="{{card.imageUrl}}" alt="{{card.name}}">
         </div>
         <div class="title">
-          <div title-caps="{{card.name}}"></div>
+          <div title-caps="{{card.name}}" on-render="$(this).closest('.card').trigger('layout-card')"></div>
         </div>
         <div class="description">
         </div>

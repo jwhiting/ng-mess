@@ -100,7 +100,8 @@
   <p>the card content is loaded async from json/cards.json. rendered using
   ng-repeat and a remote temaple (partials/card.html). in the card template are
   some tricks like the title caps directive. images are loaded from app1/img/*.
-  this is not yet doing card text truncation/backside ui.</p>
+  card text truncation/backside ui automatic layout is handled by a jquery
+  event handler that is triggered by the angular title caps directive.</p>
   <div ng-controller="CardListCtrl">
     <div ng-repeat="card in cards">
       <div ng-include="'partials/card.html'"></div>
