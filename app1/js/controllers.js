@@ -12,13 +12,12 @@ angular.module('myApp.controllers', []).
   }]);
 */
 
-angular.module('myApp.controllers', []);
-
 function NewTaskCtrl($scope, $localStorage) {
   //todo
 };
 
-function TaskListCtrl($scope, $localStorage) {
+//function TaskListCtrl($scope, $localStorage) {
+angular.module('myApp').controller('TaskListCtrl',['$scope','$localStorage', function($scope, $localStorage) {
   $scope.$storage = $localStorage.$default({ foo: 42 });
   $scope.tasks = [
     { "name": "do stuff 1", "owner": "joe" },
@@ -58,7 +57,7 @@ function TaskListCtrl($scope, $localStorage) {
 
   $scope.doSort();
 
-};
+}]);
 
 
 function ModalTestCtrl($scope, $timeout) {
