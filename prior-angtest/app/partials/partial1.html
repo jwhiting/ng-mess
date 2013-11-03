@@ -1,0 +1,29 @@
+<div>
+
+  <style type="text/css">
+    table td { border: 1px solid #ccc; }
+  </style>
+
+  <table>
+    <tr>
+      <th>Z owner <button ng-click="sortByProp('owner')" ng-bind-html-unsafe="sortButtonValue['owner']"></button></th>
+      <th>name <button ng-click="sortByProp('name')" ng-bind-html-unsafe="sortButtonValue['name']"></button></th>
+    </tr>
+    <tr ng-repeat="task in tasks">
+      <td>{{task.owner}}</td>
+      <td>{{task.name}}</td>
+    </tr>
+  </table>
+
+  <pre>storage foo = {{$storage.foo}}</pre>
+  <p><input type="text" ng-model="$storage.foo"></p>
+
+  <!--
+  <select ng-model="sortBy" ng-change="doSort()">
+    <option value="foo">foo</option>
+    <option value="name">Name</option>
+    <option value="owner">Owner</option>
+  </select>
+  -->
+
+</div>
